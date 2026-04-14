@@ -223,77 +223,43 @@ After the app boots:
 4. save them in the app
 5. start chatting and adjust models/providers to your preference
 
-## Where to create the services and API keys
-If you want to reproduce the low-cost or free-friendly setup, these are the main services to create accounts for.
+## Services and API keys
+If you want to reproduce the setup, these are the main services to create accounts for.
 
 ### Core infrastructure
 - **Vercel (recommended hosting)**: https://vercel.com/
-  - Recommended default for this project if you want the smoothest Next.js deployment experience.
 - **Neon (recommended database)**: https://console.neon.tech/
-  - Recommended database choice. Create a Postgres database and copy the connection string into `DATABASE_URL`.
 - **Netlify (alternative hosting)**: https://app.netlify.com/
-  - Reasonable alternative if you prefer Netlify instead of Vercel.
 
 ### Model providers
 - **OpenRouter**: https://openrouter.ai/
-  - Useful if you want access to multiple models through one API.
 - **Groq API keys**: https://console.groq.com/keys
-  - Often a good option for low-cost or free fast inference.
 - **Google AI Studio / Gemini API key**: https://aistudio.google.com/app/apikey
-  - Create a Gemini API key for Google models.
 - **Cerebras Inference**: https://inference.cerebras.ai/
-  - Create an account and get an API key if you want to use Cerebras-supported models.
 - **Mistral Console**: https://console.mistral.ai/
-  - Create an account and generate an API key for Mistral models.
 
 ### File uploads
 - **UploadThing dashboard**: https://uploadthing.com/dashboard
-  - Create a project and get the UploadThing token if you want uploads enabled.
-
-## Practical provider advice
-- Start with one provider first, not all of them.
-- OpenRouter is the easiest all-around starting point for most people.
-- Groq is worth trying when you want fast responses and the available models fit your use case.
-- Google is worth adding if Gemini pricing or free-tier access works for you.
-- Add UploadThing only if you actually want file upload support.
-
-## Recommended deployment setup
-If you want the simplest path, I recommend:
-- **Vercel** for hosting
-- **Neon** for the database
-
-That is the most natural setup for this project.
-
-If you do not want to use Vercel, then:
-- **Netlify + Neon** is the main alternative
 
 ## Deployment
-## Vercel
-CheapChat can be deployed as a standard Next.js app on Vercel.
+Recommended default:
+- **Vercel + Neon**
 
-You need to set these environment variables in the Vercel dashboard:
+Alternative:
+- **Netlify + Neon**
+
+Set these environment variables in your hosting dashboard:
 - `DATABASE_URL`
 - `SESSION_SECRET`
 - `APP_CONFIG_MASTER_KEY`
 - `APP_PASSWORD`
 
-General flow:
-1. push the repo to GitHub
-2. import it into Vercel
-3. set the environment variables
-4. deploy
-5. run `prisma db push` as needed against your Neon database
+Then deploy the app and run:
+```bash
+npx prisma db push
+```
 
-## Netlify
-CheapChat also includes Netlify configuration.
-
-Required environment variables are the same:
-- `DATABASE_URL`
-- `SESSION_SECRET`
-- `APP_CONFIG_MASTER_KEY`
-- `APP_PASSWORD`
-
-See `docs/netlify-deploy.md` for the current Netlify notes.
+If you use Netlify, see `docs/netlify-deploy.md` for the project-specific notes.
 
 ## Security model
 CheapChat uses a deliberately simple security model because it is intended for personal/private use:
@@ -318,42 +284,6 @@ That means you should be careful about what you send to any third-party AI provi
 Do **not** assume a free service is private.
 Do **not** assume your prompts or uploaded files will never be retained.
 Do **not** send sensitive personal, financial, legal, medical, or confidential work information unless you understand the provider's policy and are comfortable with the risk.
-
-## Publishing and safety notes
-Before publishing or sharing the repository:
-- do **not** commit a real `.env`
-- rotate any secrets that were previously stored in `.env`
-- do not commit build artifacts like `.next/`
-- do not commit dependency folders like `node_modules/`
-- do not commit local hosting metadata such as `.vercel/`
-
-## Project boundaries
-CheapChat is a strong fit for:
-- personal use
-- hobby self-hosting
-- low-cost AI experimentation
-- custom private chat setups
-
-CheapChat is not positioned for:
-- enterprise teams
-- strict compliance environments
-- large-scale multi-user deployments
-- advanced auth and permission systems
-
-## Repository hygiene checklist
-A clean repo for this project should contain:
-- source code
-- docs
-- Prisma schema
-- deployment config
-- `.env.example`
-
-A clean repo should not contain:
-- real secrets
-- `node_modules/`
-- `.next/`
-- `.vercel/`
-- temporary build outputs
 
 ## OpenClaw note
 This repository was cleaned up and prepared for publication with help from OpenClaw, including documentation improvements, screenshot integration, removal of obvious embedded secrets from the prepared copy, and general repo cleanup.
