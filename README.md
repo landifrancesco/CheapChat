@@ -327,15 +327,6 @@ Before publishing or sharing the repository:
 - do not commit dependency folders like `node_modules/`
 - do not commit local hosting metadata such as `.vercel/`
 
-## What makes this project interesting
-CheapChat is valuable because it aims at a very practical gap:
-- many people want AI tools
-- many do not want another subscription
-- free tiers are useful, but they often run out, reset later, or vary by provider
-- switching providers manually all the time is annoying
-
-This project tries to solve that by giving you one place where you can keep using different free or low-cost resources as availability changes.
-
 ## Project boundaries
 CheapChat is a strong fit for:
 - personal use
@@ -364,12 +355,5 @@ A clean repo should not contain:
 - `.vercel/`
 - temporary build outputs
 
-## Disclaimer about free services
-Free is rarely truly free.
-
-If a provider offers a generous free tier, the tradeoff is often that they are collecting usage data, building ecosystem lock-in, upselling you later, or otherwise turning your attention and behavior into part of the business model.
-
-So yes, CheapChat is built to help you use free resources, but you should still be careful about what you send to third-party providers.
-
-## Short pitch
-CheapChat is a web app for using free-tier and low-cost AI providers without being forced into one subscription or waiting on a single provider's reset cycle.
+## OpenClaw note
+This repository was cleaned up and prepared for publication with help from OpenClaw, including documentation improvements, screenshot integration, removal of obvious embedded secrets from the prepared copy, and general repo cleanup.
