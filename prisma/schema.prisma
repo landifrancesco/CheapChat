@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Visitor {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  chats     Chat[]
+}
+
+model Chat {
+  id            String   @id @default(cuid())
+  visitorId     String
+  title         String   @default("New Chat")
+  modelProvider String   @default("openrouter")
+  modelName     String   @default("openrouter/auto")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  visitor       Visitor  @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+  messages      Message[]
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  chatId    String
+  role      String   // "user", "assistant", "system"
+  content   String   @db.Text
+  model     String?  // The specific model ID used (e.g., "gemini-1.5-flash")
+  createdAt DateTime @default(now())
+
+  chat        Chat         @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  attachments Attachment[]
+}
+
+model Attachment {
+  id            String   @id @default(cuid())
+  messageId     String
+  filename      String
+  mimeType      String
+  size          Int
+  extractedText String?  @db.Text
+  createdAt     DateTime @default(now())
+
+  message       Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+}
+
+model AppConfig {
+  key       String   @id
+  value     String   @db.Text // Encrypted value using APP_CONFIG_MASTER_KEY
+  updatedAt DateTime @updatedAt
+}
